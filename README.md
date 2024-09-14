@@ -12,8 +12,10 @@ I also used the inbuilt R documentation, mainly for visualisation purposes for a
 
 ## How to replicate:
 
-1. Download the following applications
-2. 
+1. Download the entire zip file
+2. Run the "CreditRiskApp.rmd" file on R Studio
+3. Click on "Run Document" in the bar above the code or simply press (CTRL+SHIFT+K)
+4. Enjoy
 
 ## How to Use the App:
 
