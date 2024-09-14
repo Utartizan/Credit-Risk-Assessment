@@ -1,21 +1,3 @@
-#
-# This is a Shiny web application made by Ubayd Knight. 
-# You can run the application by clicking
-# the 'Run App' button above.
-
-# To help, I used the YaRrr! Pirate's Guide to R as learning material
-# To access the book, please visit this link: https://bookdown.org/ndphillips/YaRrr/
-
-# Since I knew that logistic regressions were widely used for circumstances
-# such as this, I knew making this wouldn't seem as hard as it would for others.
-
-# For the logistic regression, I referred to 15.5 to convert the numbers into
-# probabilities.
-
-# I also used the inbuilt R documentation, mainly for visualisation purposes
-# regarding shiny, shinythemes, shinywidgets, etc.
-#
-
 library(shiny)
 library(shinythemes)
 library(shinyWidgets)
