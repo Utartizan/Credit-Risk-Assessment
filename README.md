@@ -10,6 +10,10 @@ Since I knew that logistic regressions were widely used for circumstances such a
 
 I also used the inbuilt R documentation, mainly for visualisation purposes for anything related to shiny, shinythemes, shinywidgets, etc.
 
+## How to replicate:
+
+1. Download the following applications
+2. 
 
 ## How to Use the App:
 
