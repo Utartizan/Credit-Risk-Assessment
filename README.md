@@ -1,6 +1,15 @@
 **Welcome to the Credit Risk Assessment App!**
 
-This app helps you assess the risk of loan default based on various user inputs. It uses a logistic regression model to predict the probability of default.
+I made this app pretty quickly on R Studio to help display my capabilities regarding utilising R code as well as my ability to learn new concepts effectively.
+
+For guidance, I used the YaRrr! Pirate's Guide to R as learning material. (e.g. For the logistic regression, I referred to chapter 15.5 for help)
+
+To access the book, please visit this link: https://bookdown.org/ndphillips/YaRrr/
+
+Since I knew that logistic regressions were widely used for circumstances such as this, I knew making this would be a project to enjoy spending time on.
+
+I also used the inbuilt R documentation, mainly for visualisation purposes for anything related to shiny, shinythemes, shinywidgets, etc.
+
 
 **How to Use the App:**
 
