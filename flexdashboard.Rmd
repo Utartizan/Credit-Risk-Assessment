@@ -1,0 +1,249 @@
+---
+title: "Credit Risk Assessment"
+author: "Ubayd Knight"
+date: "`r Sys.Date()`"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme: yeti
+runtime: shiny
+---
+    
+    
+Column 
+-------------------------------------
+    
+### Details
+    
+**Welcome to the Credit Risk Assessment App!**
+
+This app helps you assess the risk of loan default based on various user inputs. It uses a logistic regression model to predict the probability of default.
+
+**How to Use the App:**
+
+1. Enter your age (must be between 18 and 110).
+
+2. Provide your annual income (must be non-negative).
+
+3. Select the length of the loan (Short Term or Long Term).
+
+4. Choose your ownership status (Own, Mortgage, Rent, None).
+
+5. Enter your employment length (must be between 0 and 100 years).
+
+6. Select your loan intent (Education, Business, Debt Consolidation, Recreational, Other).
+
+7. Indicate if you have had any previous bankruptcies (Yes or No).
+
+8. Enter the loan amount (must be between £0 and £9,999,999).
+
+9. Click the "Predict Default Risk" button to see the results.
+
+**Methodology:**
+The app uses a logistic regression model trained on historical loan data to predict the probability of default. The model considers various factors such as age, income, loan amount, and more.
+
+**Model Details:**
+The logistic regression model is used to predict the probability of default. Key features include age, income, loan amount, and employment length.
+
+**Interpretation of Results:**
+
+The gauge output shows the predicted probability of default. The gauge is divided into three sectors:
+
+- **Success (0-40%)**: Low risk of default.
+
+- **Warning (40-60%)**: Moderate risk of default.
+
+- **Danger (60-100%)**: High risk of default.
+
+**Acknowledgments:**
+This app was developed with help from the YaRrr! Pirate's Guide to R and the inbuilt R documentation.
+
+**Data Source:**
+The model is trained on a dataset named "mock_loan_data.csv," which includes historical loan data with various features made by "mock_data.R".
+
+**Contact Information:**
+For any questions or support, please contact me at u2281887@unimail.hud.ac.uk].
+   
+Column {data-width=700}
+-------------------------------------
+   
+### Application
+
+```{r}
+```   
+
+---
+
+```{r}
+#
+# This is a Shiny web application made by Ubayd Knight. 
+# You can run the application by clicking
+# the 'Run App' button above.
+
+# To help, I used the YaRrr! Pirate's Guide to R as learning material
+# To access the book, please visit this link: https://bookdown.org/ndphillips/YaRrr/
+
+# Since I knew that logistic regressions were widely used for circumstances
+# such as this, I knew making this wouldn't seem as hard as it would for others.
+
+# For the logistic regression, I referred to 15.5 to convert the numbers into
+# probabilities.
+
+# I also used the inbuilt R documentation, mainly for visualisation purposes
+# regarding shiny, shinythemes, shinywidgets, etc.
+#
+
+library(shiny)
+library(shinythemes)
+library(shinyWidgets)
+library(ggplot2)
+library(caret)
+library(dplyr)
+library(flexdashboard)
+library(shinyFeedback)
+
+
+ui <- fluidPage(
+    theme = shinytheme("yeti"),
+
+    # Application title
+    fluidRow(
+    
+      column(12, align = "center",
+             offset = 0.5,
+             
+    titlePanel("Credit Risk Assessment"))),
+    
+
+    fluidRow(
+      
+        column(12,
+               offset = 0.5,
+               align = "center",
+          
+          numericInput("age", "Age:", value = "test", min = 18, max = 110),
+          
+          numericInput("income", "Annual Income:", value = "", min = 0),
+          
+          selectInput("length_Term", "Length of Loan:",
+                      choices = c("Short Term", "Long Term")),
+          
+          selectInput("ownershipStatus", "Ownership Status:", 
+                      choices = c("Own", "Mortgage", "Rent", "None")),
+          
+          numericInput("employment_length", "Employment Length:", value = "", min = 0, max = 100),
+          
+          selectInput("loanIntent", "Loan Intent:", 
+                      choices = c("Education", "Business", "Debt Consolidation", "Recreational", "Other")),
+          
+          selectInput("bankruptcies", "Previous Bankruptcies?",
+                      choices= c("No", "Yes")),
+          
+          numericInput("loan_amount", "Loan Amount:", value = "", min = 0, max = 9999999),
+          
+          actionButton("prediction", "Predict Default Risk")
+      ),
+
+           fluidRow(
+             column(12, align = "center",
+          gaugeOutput("prediction")
+          
+        )
+     )
+   )
+  )
+
+
+server <- function(input, output) {
+  # this thing here reads the csv file named "mock_loan_data.csv" and
+  # tells the code to learn it so it can be reused for the training
+  # which will be seen below.
+    loan_data <- read.csv("mock_loan_data.csv")
+  
+  loan_data <- loan_data %>%
+    
+    # the 'as.factor' basically transforms the factors listed above and makes it
+    # something that will effect the prediction
+    mutate(default = as.factor(default),
+           
+           length_Term = as.factor(length_Term),
+           
+           ownershipStatus = as.factor(ownershipStatus),
+           
+           loanIntent = as.factor(loanIntent),
+           
+           bankruptcies = as.factor(bankruptcies))
+  
+  # This utilises caret predictive models to train and
+  # set up the simple model utilised to generate the predictions (e.g., logistic regression)
+  
+  # glm = regression model
+  # logistic regression models should use a binomial family
+  model <- train(default ~ ., data = loan_data, method = "glm", family = "binomial")
+  
+  observeEvent(input$prediction, {
+    
+    # This part here basically takes each data column
+    # from the "mock_loan_data.csv" file and integrates it here for calculation 
+    
+    new_data <- data.frame(
+      
+      # age is equal to the age column from 'loan_data' which is the .csv file
+      # the $ sign is basically used to allow the code to access and extract specific
+      # parts from the file included 
+      age = input$age,
+      
+      # income is equal to the income column from 'loan_data' which is the .csv file
+      income = input$income,
+      
+      # you get the gist.
+      length_Term = input$length_Term,
+      
+      ownershipStatus = input$ownershipStatus,
+      
+      employment_length = input$employment_length,
+      
+      loanIntent = input$loanIntent,
+      
+      loan_amount = input$loan_amount,
+      
+      bankruptcies = input$bankruptcies
+    )
+    
+    # This line of code executes the prediction of the default risk associated
+    # with the inputs of the user
+    prediction <- predict(model, new_data, type = "prob")[,2]
+    
+    # This function below outputs the prediction obtained from the linear regression model
+    # renderGauge is basically an argument or whatever that generates a gauge
+    # makes it look more fancier than the code just specifically outputting a value
+    # via text
+    
+    output$prediction <- renderGauge({
+      
+      gauge(round(prediction * 100, 2),
+            
+            min = 0, 
+            
+            max = 100,
+            
+            symbol = '%',
+            
+            gaugeSectors(success = c(0, 40), 
+                         warning = c(40, 60), 
+                         danger = c(60, 100))
+            )
+      
+    })
+  })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+```
+
+```{r}
+
+```
