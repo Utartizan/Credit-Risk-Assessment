@@ -13,9 +13,9 @@ I also used the inbuilt R documentation, mainly for visualisation purposes for a
 ## How to replicate:
 
 1. Download the entire zip file
-2. Run the "CreditRiskApp.rmd" file on R Studio
-3. Click on "Run Document" in the bar above the code or simply press (CTRL+SHIFT+K)
-4. Enjoy
+2. Download and open R Studio
+3. Click on "File" on the top right, then select "Open Project" or "Open Project in new session"
+4. Select the "Credit Risk Assessment.Rproj" file
 
 ## How to Use the App:
 
