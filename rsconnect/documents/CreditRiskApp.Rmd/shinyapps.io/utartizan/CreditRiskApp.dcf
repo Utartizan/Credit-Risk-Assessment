@@ -1,0 +1,12 @@
+name: CreditRiskApp
+title: CreditRiskApp
+username: utartizan
+account: utartizan
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12723341
+bundleId: 9108364
+url: https://utartizan.shinyapps.io/CreditRiskApp/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

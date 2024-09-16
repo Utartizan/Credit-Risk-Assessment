@@ -14,6 +14,7 @@ library(caret)
 library(dplyr)
 library(flexdashboard)
 library(shinyFeedback)
+install.packages('rsconnect')
 
 
 ui <- fluidPage(

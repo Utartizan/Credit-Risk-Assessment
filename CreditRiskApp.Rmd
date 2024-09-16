@@ -112,6 +112,7 @@ library(caret)
 library(dplyr)
 library(flexdashboard)
 library(shinyFeedback)
+library(rsconnect)
 
 ui <- fluidPage(
     theme = shinytheme("yeti"), #this sets the appearance using shinytheme
