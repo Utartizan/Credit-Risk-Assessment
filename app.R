@@ -1,3 +1,11 @@
+##
+##
+## This file isnt really needed, but was used as as point of comparison
+## to check back and see if I had accidentally mistyped the names of some
+## functions or made some human errors as this version worked perfectly.
+
+
+
 library(shiny)
 library(shinythemes)
 library(shinyWidgets)
