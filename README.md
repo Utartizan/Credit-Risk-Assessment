@@ -62,7 +62,7 @@ This app was developed with help from the YaRrr! Pirate's Guide to R and the inb
 
 ## **Data Source:** 
 
-The model is trained on a dataset named "hmeq.csv," which includes historical loan data with various features. The dataset is sourced from creditriskanalytics.net. As a token of appreciation I will include their books as references below.
+The model is trained on a dataset named "hmeq.csv," which includes historical loan data with various features. The dataset is sourced from creditriskanalytics.net, obtained by B. Baesens, D. Rosch, and H. Scheule. As a token of appreciation I will include their books as references below.
 
 In the "hmeq.csv" dataset, the results for the reasoning of the home equity loans as well as the job options have been renamed to their full version (e.g. ProfExe -\> Professor/Executive) for user convenience.
 
