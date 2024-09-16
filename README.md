@@ -5,10 +5,8 @@ This app helps you assess the risk of loan default based on various user inputs.
 
 ## **How to install and run the application:**
 
-1. Install R Studio
-2. Click on File -> Open Project
-3. Click on the .Rproj file
-4. Run the application or type [CTRL + SHIFT + K]
+1. No need to install anything, actually. Just click on the link below.
+2. https://github.com/Utartizan/Credit-Risk-Assessment
 
 ## **How to Use the App:**
 
