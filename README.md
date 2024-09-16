@@ -6,7 +6,7 @@ This app helps you assess the risk of loan default based on various user inputs.
 ## **How to install and run the application:**
 
 1. No need to install anything, actually. Just click on the link below.
-2. https://github.com/Utartizan/Credit-Risk-Assessment
+2. [https://utartizan.shinyapps.io/CreditRiskApp/]
 
 ## **How to Use the App:**
 
