@@ -53,11 +53,12 @@ The bar output shows the predicted probability of default. The bar is divided in
 
 This app was developed with help from the YaRrr! Pirate's Guide to R and the inbuilt R documentation.
 
-In the "hmeq.csv" dataset, the results for the reasoning of the home equity loans as well as the job options have been renamed to their full version (e.g. ProfExe -\> Professor/Executive) for user convenience.
-
 ## **Data Source:** 
 
 The model is trained on a dataset named "hmeq.csv," which includes historical loan data with various features. The dataset is sourced from creditriskanalytics.net. As a token of appreciation I will include their books as references below.
+
+In the "hmeq.csv" dataset, the results for the reasoning of the home equity loans as well as the job options have been renamed to their full version (e.g. ProfExe -\> Professor/Executive) for user convenience.
+
 
 ## **References:**
 
