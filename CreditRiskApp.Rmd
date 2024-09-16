@@ -6,74 +6,80 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
-    theme: yeti
+    theme: united
 runtime: shiny
 ---
-    
-    
-Column 
--------------------------------------
-    
-### Details
-    
-**Welcome to the Credit Risk Assessment App!**
+
+## Column
+
+### Guide
+
+**Welcome to the Home Loan Default Risk Predictor App!**
 
 This app helps you assess the risk of loan default based on various user inputs. It uses a logistic regression model to predict the probability of default.
 
 **How to Use the App:**
 
-1. Enter your age (must be between 18 and 110).
+1.  Enter the loan amount **(must be between £1,100 and £110,000)**.
 
-2. Provide your annual income (must be non-negative).
+2.  Provide the mortgage due amount **(must be non-negative)**.
 
-3. Select the length of the loan (Short Term or Long Term).
+3.  Enter the property value **(must be non-negative)**.
 
-4. Choose your ownership status (Own, Mortgage, Rent, None).
+4.  Select the reason for the loan **(Home Improvement or Debt Consolidation)**.
 
-5. Enter your employment length (must be between 0 and 100 years).
+5.  Choose your job category **(Manager, Office, Other, Professional/Executive, Sales, Self-Hired)**.
 
-6. Select your loan intent (Education, Business, Debt Consolidation, Recreational, Other).
+6.  Enter the years at your present job **(must be between 0 and 100 years)**.
 
-7. Indicate if you have had any previous bankruptcies (Yes or No).
+7.  Enter the number of major derogatory reports **(must be between 0 and 10)**.
 
-8. Enter the loan amount (must be between £0 and £9,999,999).
+8.  Enter the number of delinquent credit lines **(must be between 0 and 19)**.
 
-9. Click the "Predict Default Risk" button to see the results.
+9.  Enter the age of your oldest credit line in months **(must be between 0 and 100)**.
 
-**Methodology:**
-The app uses a logistic regression model trained on historical loan data to predict the probability of default. The model considers various factors such as age, income, loan amount, and more.
+10. Enter the number of recent credit inquiries **(must be between 0 and 100)**.
 
-**Model Details:**
-The logistic regression model is used to predict the probability of default. Key features include age, income, loan amount, and employment length.
+11. Enter the number of credit lines **(must be between 0 and 100)**.
 
-**Interpretation of Results:**
+12. Enter your debt-to-income ratio **(must be between 0 and 100)**.
 
-The gauge output shows the predicted probability of default. The gauge is divided into three sectors:
+Click the **"Predict Default Risk"** button to see the results.
 
-- **Success (0-40%)**: Low risk of default.
+**Methodology:** The app uses a logistic regression model trained on historical loan data to predict the probability of default. The model considers various factors such as loan amount, mortgage due, property value, job category, years at present job, number of derogatory reports, number of delinquent credit lines, age of oldest credit line, number of recent credit inquiries, number of credit lines, and debt-to-income ratio.
 
-- **Warning (40-60%)**: Moderate risk of default.
+**Model Details:** The logistic regression model is used to predict the probability of default. Key features include loan amount, mortgage due, property value, job category, years at present job, number of derogatory reports, number of delinquent credit lines, age of oldest credit line, number of recent credit inquiries, number of credit lines, and debt-to-income ratio.
 
-- **Danger (60-100%)**: High risk of default.
+**Interpretation of Results:** The bar output shows the predicted probability of default. The bar is divided into three colors:
 
-**Acknowledgments:**
-This app was developed with help from the YaRrr! Pirate's Guide to R and the inbuilt R documentation.
+-   **Green (0-35%)**: Low risk of default.
 
-**Data Source:**
-The model is trained on a dataset named "mock_loan_data.csv," which includes historical loan data with various features made by "mock_data.R".
+-   **Yellow (36-64%)**: Moderate risk of default.
 
-**Contact Information:**
-For any questions or support, please contact me at u2281887@unimail.hud.ac.uk].
-   
-Column {data-width=700}
--------------------------------------
-   
+-   **Red (65-100%)**: High risk of default.
+
+**Acknowledgments:** This app was developed with help from the YaRrr! Pirate's Guide to R and the inbuilt R documentation.
+
+In the "hmeq.csv" dataset, the results for the reasoning of the home equity loans as well as the job options have been renamed to their full version (e.g. ProfExe -\> Professor/Executive) for user convenience.
+
+**Data Source:** The model is trained on a dataset named "hmeq.csv," which includes historical loan data with various features. The dataset is sourced from creditriskanalytics.net. As a token of appreciation I will include their books as references below.
+
+**References:**
+
+-   B. Baesens, D. Roesch, H. Scheule, *Credit Risk Analytics: Measurement Techniques, Applications and Examples in SAS*, Wiley, 2016.
+
+-   H. Scheule, D. Roesch, B. Baesens, *Credit Risk Analytics: The R Companion*, Scheule Roesch Baesens, 2017.
+
+**Contact Information:** For any questions, suggestions, or support, please contact me at u2281887\@unimail.hud.ac.uk.
+
+## Column {data-width="700"}
+
 ### Application
 
 ```{r}
-```   
+```
 
----
+------------------------------------------------------------------------
 
 ```{r}
 #
@@ -90,6 +96,10 @@ Column {data-width=700}
 # For the logistic regression, I referred to 15.5 to convert the numbers into
 # probabilities.
 
+# In the "hmeq.csv" dataset, the results for the reasoning of the home equity loans as well as the job options have been renamed to their # full version (e.g. ProfExe -\> Professor/Executive) for user convenience.
+
+# Data Source: The model is trained on a dataset named \"hmeq.csv,\" which includes historical loan data with various features. The       # dataset is sourced from creditriskanalytics.net. As a token of appreciation I have included a reference to in GitHub.
+
 # I also used the inbuilt R documentation, mainly for visualisation purposes
 # regarding shiny, shinythemes, shinywidgets, etc.
 #
@@ -103,147 +113,203 @@ library(dplyr)
 library(flexdashboard)
 library(shinyFeedback)
 
-
 ui <- fluidPage(
-    theme = shinytheme("yeti"),
-
-    # Application title
-    fluidRow(
-    
-      column(12, align = "center",
-             offset = 0.5,
-             
-    titlePanel("Credit Risk Assessment"))),
-    
+    theme = shinytheme("yeti"), #this sets the appearance using shinytheme
 
     fluidRow(
-      
-        column(12,
-               offset = 0.5,
-               align = "center",
-          
-          numericInput("age", "Age:", value = "test", min = 18, max = 110),
-          
-          numericInput("income", "Annual Income:", value = "", min = 0),
-          
-          selectInput("length_Term", "Length of Loan:",
-                      choices = c("Short Term", "Long Term")),
-          
-          selectInput("ownershipStatus", "Ownership Status:", 
-                      choices = c("Own", "Mortgage", "Rent", "None")),
-          
-          numericInput("employment_length", "Employment Length:", value = "", min = 0, max = 100),
-          
-          selectInput("loanIntent", "Loan Intent:", 
-                      choices = c("Education", "Business", "Debt Consolidation", "Recreational", "Other")),
-          
-          selectInput("bankruptcies", "Previous Bankruptcies?",
-                      choices= c("No", "Yes")),
-          
-          numericInput("loan_amount", "Loan Amount:", value = "", min = 0, max = 9999999),
-          
-          actionButton("prediction", "Predict Default Risk")
-      ),
+        column(12, align = "center", offset = 0.5, #telling the code to basically center the title
+               titlePanel("Home Loan Default Risk Predictor"))
+    ),
 
-           fluidRow(
-             column(12, align = "center",
-          gaugeOutput("prediction")
-          
+    fluidRow(
+        column(12, offset = 0.5, align = "center", #telling the code to basically center the title
+               
+               numericInput("loan_amnt", "Loan Amount:", value = "", min = 1100, max = 110000), #setting up user inputs for the app
+               
+               numericInput("mortdue", "Mortgage Due:", value = "", min = 0),
+               
+               numericInput("value", "Property Value:", value = "", min = 0),
+               
+               selectInput("reason", "Reason for Loan:", choices = c("Home Improvement", "Debt Consolidation")),
+               
+               selectInput("job", "Job:", choices = c("Manager", "Office", "Other", "Professional/Executive", "Sales", "Self-Hired")),
+               
+               numericInput("yoj", "Years at Present Job:", value = "", min = 0, max = 100),
+               
+               numericInput("derog", "Number of Major Derogatory Reports:", value = "", min = 0, max = 10),
+               
+               numericInput("delinq", "Number of Delinquenct Credit Lines:", value = "", min = 0, max = 19),
+               
+               numericInput("clage", "Age of Oldest Credit Line (In Months):", value = "", min = 0, max = 100),
+               
+               numericInput("ninq", "Number of Recent Credit Inquiries:", value = "", min = 0, max = 100),
+               
+               numericInput("clno", "Number of Credit Lines:", value = "", min = 0, max = 100),
+               
+               numericInput("debtinc", "Debt-to-Income Ratio:", value = "", min = 0, max = 100),
+               
+               actionButton("prediction", "Predict Default Risk")
+  
+        ),
+
+        fluidRow(
+            column(12, align = "center", #telling the code to basically center the prediction button
+                   
+                   plotOutput("predictionPlot") #telling the code to plot the "predictionPlot" which is made below
+            )
         )
-     )
-   )
-  )
-
+    )
+)
 
 server <- function(input, output) {
-  # this thing here reads the csv file named "mock_loan_data.csv" and
-  # tells the code to learn it so it can be reused for the training
-  # which will be seen below.
-    loan_data <- read.csv("mock_loan_data.csv")
+    loan_data <- read.csv("hmeq.csv") #telling the code read from the hmeq.csv file in the folder
   
-  loan_data <- loan_data %>%
+    loan_data <- na.omit(loan_data) #telling the code to leave out entire rows that have missing information to keep the results
+    # statistically valid
     
-    # the 'as.factor' basically transforms the factors listed above and makes it
-    # something that will effect the prediction
-    mutate(default = as.factor(default),
-           
-           length_Term = as.factor(length_Term),
-           
-           ownershipStatus = as.factor(ownershipStatus),
-           
-           loanIntent = as.factor(loanIntent),
-           
-           bankruptcies = as.factor(bankruptcies))
+    loan_data$BAD <- as.factor(loan_data$BAD) #by inputting "as.factor" instead of "as.numeric", you are telling the code that this
+    # represents categorical data instead of numerical data (0 for no default, and 1 for default, in this instance.)
   
-  # This utilises caret predictive models to train and
-  # set up the simple model utilised to generate the predictions (e.g., logistic regression)
+    loan_data <- loan_data %>% #utilises the 'pipeline operator' from dplyr package basically saying it'll be used in other functions
+      
+        mutate( #this "mutates" or converts these columns into different data types, here, being numeric and factor
+          
+            LOAN = as.numeric(LOAN),
+            
+            MORTDUE = as.numeric(MORTDUE),
+            
+            VALUE = as.numeric(VALUE),
+            
+            REASON = as.factor(REASON),
+            
+            JOB = as.factor(JOB),
+            
+            YOJ = as.numeric(YOJ),
+            
+            DEROG = as.numeric(DEROG),
+            
+            DELINQ = as.numeric(DELINQ),
+            
+            CLAGE = as.numeric(CLAGE),
+            
+            NINQ = as.numeric(NINQ),
+            
+            CLNO = as.numeric(CLNO),
+            
+            DEBTINC = as.numeric(DEBTINC)
+        )
   
-  # glm = regression model
-  # logistic regression models should use a binomial family
-  model <- train(default ~ ., data = loan_data, method = "glm", family = "binomial")
+    preProc <- preProcess(loan_data, method = c("center", "scale")) #applies consistency throughout the dataset by making the mean of
+    # each function/variable zero so that the values are 'normalised' and a better fit for utilisation
+    
+    loan_data <- predict(preProc, loan_data) #applies the "preproc" instruction to the "loan_data" above
   
-  observeEvent(input$prediction, {
+    train_control <- trainControl(method = "cv", number = 10) #this is a cross-validation technique to prevent overfitting and help make 
+    # the model's performance become more reliable. The number 10 represents how many times the model will be trained
     
-    # This part here basically takes each data column
-    # from the "mock_loan_data.csv" file and integrates it here for calculation 
-    
-    new_data <- data.frame(
+    model <- train(BAD ~ LOAN + MORTDUE + VALUE + REASON + JOB + YOJ + DEROG + DELINQ + CLAGE + NINQ + CLNO + DEBTINC, data = loan_data, method = "glm", family = "binomial", trControl = train_control) #assigns all the factors into the model, it basically is a formula for the
+    # logistic regression model
+  
+    observeEvent(input$prediction, { #basically tells the code to make sure that it collects all the input values, preprocesses them,
+      #makes a prediction, to be displayed as a result in the bar plot.
       
-      # age is equal to the age column from 'loan_data' which is the .csv file
-      # the $ sign is basically used to allow the code to access and extract specific
-      # parts from the file included 
-      age = input$age,
-      
-      # income is equal to the income column from 'loan_data' which is the .csv file
-      income = input$income,
-      
-      # you get the gist.
-      length_Term = input$length_Term,
-      
-      ownershipStatus = input$ownershipStatus,
-      
-      employment_length = input$employment_length,
-      
-      loanIntent = input$loanIntent,
-      
-      loan_amount = input$loan_amount,
-      
-      bankruptcies = input$bankruptcies
-    )
-    
-    # This line of code executes the prediction of the default risk associated
-    # with the inputs of the user
-    prediction <- predict(model, new_data, type = "prob")[,2]
-    
-    # This function below outputs the prediction obtained from the linear regression model
-    # renderGauge is basically an argument or whatever that generates a gauge
-    # makes it look more fancier than the code just specifically outputting a value
-    # via text
-    
-    output$prediction <- renderGauge({
-      
-      gauge(round(prediction * 100, 2),
+        new_data <- data.frame(
+          
+            LOAN = input$loan_amnt,
             
-            min = 0, 
+            MORTDUE = input$mortdue,
             
-            max = 100,
+            VALUE = input$value,
             
-            symbol = '%',
+            REASON = input$reason,
             
-            gaugeSectors(success = c(0, 40), 
-                         warning = c(40, 60), 
-                         danger = c(60, 100))
-            )
-      
+            JOB = input$job,
+            
+            YOJ = input$yoj,
+            
+            DEROG = input$derog,
+            
+            DELINQ = input$delinq,
+            
+            CLAGE = input$clage,
+            
+            NINQ = input$ninq,
+            
+            CLNO = input$clno,
+            
+            DEBTINC = input$debtinc
+        )
+    
+        new_data <- predict(preProc, new_data)
+    
+        print(new_data)
+    
+        if (any(is.na(new_data))) { #error in case the user accidentally (or purposely lol) leaves out a requirement
+          
+            showNotification("Please fill in all fields.", type = "error")
+          
+            return(NULL)
+        }
+    
+        if (nrow(new_data) != 1) { #this is a debug instruction that helped me save time and hair in the process of making this app
+          
+            showNotification("Error: Incorrect number of rows in new_data.", type = "error")
+          
+            return(NULL)
+        }
+    
+        if (!is.data.frame(new_data)) { #this is a debug instruction that helped me save time and hair in the process of making this app
+          
+            showNotification("Error: new_data is not a data frame.", type = "error")
+          
+            return(NULL)
+        }
+    
+        prediction <- tryCatch({
+          
+            predict(model, new_data, type = "prob")[,2]
+          
+        }, error = function(e) { # this is a debug instruction that helped me save time and hair in the process of making this app
+          
+            showNotification(paste("Prediction error:", e$message),
+                             
+                             type = "error")
+          
+            return(NULL)
+        })
+    
+        print(prediction)
+    
+        if (!is.null(prediction)) {
+          
+            output$predictionPlot <- renderPlot({ #renders the plot named "predictionPlot" and outputs it into the user interface
+              
+                color <- ifelse(prediction <= 0.35, "green", ifelse(prediction <= 0.64, "yellow", "red")) #changes bar colour depending
+                # on the level of risk
+              
+                ggplot(data.frame(Prediction = prediction), aes(x = "", y = Prediction)) +
+                
+                    geom_bar(stat = "identity", fill = color, width = 0.4) + #geometry stuff to ensure the plot works with geo settings
+                
+                    ylim(0, 1) +
+                
+                    geom_text(aes(label = round(Prediction * 100, 2)), vjust = -0.5, size = 5) + #adds text label above the bar
+                
+                    labs(title = "", y = "Probability of Default", x = "") + #adds label and title to the graph
+                  # to make it look nice and tidy :)
+                
+                    theme_minimal() + #minimal theme
+                
+                    theme(plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+                          
+                          axis.text.x = element_blank(), #removes x-axis text
+                          
+                          axis.ticks.x = element_blank()) #removes x-axis ticks
+              
+            })
+        }
     })
-  })
 }
 
-# Run the application 
 shinyApp(ui = ui, server = server)
-
-```
-
-```{r}
-
 ```

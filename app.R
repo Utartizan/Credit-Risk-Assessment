@@ -40,7 +40,7 @@ ui <- fluidPage(
            numericInput("employment_length", "Employment Length:", value = "", min = 0, max = 100),
            
            selectInput("loanIntent", "Loan Intent:", 
-                       choices = c("Education", "Business", "Debt Consolidation", "Recreational", "Other")),
+                       choices = c("PERSONAL", "EDUCATION", "MEDICAL", "VENTURE", "HOMEIMPROVEMENT", "DEBTCONSOLIDATION")),
            
            selectInput("bankruptcies", "Previous Bankruptcies?",
                        choices= c("No", "Yes")),
