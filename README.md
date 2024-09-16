@@ -1,61 +1,66 @@
-# Welcome to the Credit Risk Assessment App!
 
-I made this app pretty quickly on R Studio to help display my capabilities regarding utilising R code as well as my ability to learn new concepts effectively.
+# **Welcome to the Home Loan Default Risk Predictor App!**
 
-For guidance, I used the YaRrr! Pirate's Guide to R as learning material. (e.g. For the logistic regression, I referred to chapter 15.5 for help)
+This app helps you assess the risk of loan default based on various user inputs. It uses a logistic regression model to predict the probability of default.
 
-To access the book, please visit this link: https://bookdown.org/ndphillips/YaRrr/
+## **How to Use the App:**
 
-Since I knew that logistic regressions were widely used for circumstances such as this, I knew making this would be a project to enjoy spending time on.
+1.  Enter the loan amount **(must be between £1,100 and £110,000)**.
 
-I also used the inbuilt R documentation, mainly for visualisation purposes for anything related to shiny, shinythemes, shinywidgets, etc.
+2.  Provide the mortgage due amount **(must be non-negative)**.
 
-## How to replicate:
+3.  Enter the property value **(must be non-negative)**.
 
-1. Download the entire zip file
-2. Download and open R Studio
-3. Click on "File" on the top right, then select "Open Project" or "Open Project in new session"
-4. Select the "Credit Risk Assessment.Rproj" file
+4.  Select the reason for the loan **(Home Improvement or Debt Consolidation)**.
 
-## How to Use the App:
+5.  Choose your job category **(Manager, Office, Other, Professional/Executive, Sales, Self-Hired)**.
 
-1. Enter your age (must be between 18 and 110).
+6.  Enter the years at your present job **(must be between 0 and 100 years)**.
 
-2. Provide your annual income (must be non-negative).
+7.  Enter the number of major derogatory reports **(must be between 0 and 10)**.
 
-3. Select the length of the loan (Short Term or Long Term).
+8.  Enter the number of delinquent credit lines **(must be between 0 and 19)**.
 
-4. Choose your ownership status (Own, Mortgage, Rent, None).
+9.  Enter the age of your oldest credit line in months **(must be between 0 and 100)**.
 
-5. Enter your employment length (must be between 0 and 100 years).
+10. Enter the number of recent credit inquiries **(must be between 0 and 100)**.
 
-6. Select your loan intent (Education, Business, Debt Consolidation, Recreational, Other).
+11. Enter the number of credit lines **(must be between 0 and 100)**.
 
-7. Indicate if you have had any previous bankruptcies (Yes or No).
+12. Enter your debt-to-income ratio **(must be between 0 and 100)**.
 
-8. Enter the loan amount (must be between £0 and £9,999,999).
+Click the **"Predict Default Risk"** button to see the results.
 
-9. Click the "Predict Default Risk" button to see the results.
+## **Methodology:** 
 
-## Methodology:
+The app uses a logistic regression model trained on historical loan data to predict the probability of default. The model considers various factors such as loan amount, mortgage due, property value, job category, years at present job, number of derogatory reports, number of delinquent credit lines, age of oldest credit line, number of recent credit inquiries, number of credit lines, and debt-to-income ratio.
 
-The app uses a logistic regression model trained on historical loan data to predict the probability of default. The model considers various factors such as age, income, loan amount, and more.
+## **Model Details:** 
 
-## Model Details:
-The logistic regression model is used to predict the probability of default. Key features include age, income, loan amount, and employment length.
+The logistic regression model is used to predict the probability of default. Key features include loan amount, mortgage due, property value, job category, years at present job, number of derogatory reports, number of delinquent credit lines, age of oldest credit line, number of recent credit inquiries, number of credit lines, and debt-to-income ratio.
 
-## Interpretation of Results:
+## **Interpretation of Results:** 
 
-The gauge output shows the predicted probability of default. The gauge is divided into three sectors:
+The bar output shows the predicted probability of default. The bar is divided into three colors:
 
-- **Success (0-40%)**: Low risk of default.
+-   **Green (0-35%)**: Low risk of default.
 
-- **Warning (40-60%)**: Moderate risk of default.
+-   **Yellow (36-64%)**: Moderate risk of default.
 
-- **Danger (60-100%)**: High risk of default.
+-   **Red (65-100%)**: High risk of default.
 
-## Acknowledgments:
+## **Acknowledgments:** 
+
 This app was developed with help from the YaRrr! Pirate's Guide to R and the inbuilt R documentation.
 
-## Data Source:
-The model is trained on a dataset named "mock_loan_data.csv," which includes historical loan data with various features made by "mock_data.R".
+In the "hmeq.csv" dataset, the results for the reasoning of the home equity loans as well as the job options have been renamed to their full version (e.g. ProfExe -\> Professor/Executive) for user convenience.
+
+## **Data Source:** 
+
+The model is trained on a dataset named "hmeq.csv," which includes historical loan data with various features. The dataset is sourced from creditriskanalytics.net. As a token of appreciation I will include their books as references below.
+
+## **References:**
+
+-   B. Baesens, D. Roesch, H. Scheule, *Credit Risk Analytics: Measurement Techniques, Applications and Examples in SAS*, Wiley, 2016.
+
+-   H. Scheule, D. Roesch, B. Baesens, *Credit Risk Analytics: The R Companion*, Scheule Roesch Baesens, 2017.
