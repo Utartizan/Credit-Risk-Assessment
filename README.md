@@ -3,6 +3,13 @@
 
 This app helps you assess the risk of loan default based on various user inputs. It uses a logistic regression model to predict the probability of default.
 
+## **How to install and run the application:**
+
+1. Install R Studio
+2. Click on File -> Open Project
+3. Click on the .Rproj file
+4. Run the application or type [CTRL + SHIFT + K]
+
 ## **How to Use the App:**
 
 1.  Enter the loan amount **(must be between £1,100 and £110,000)**.
